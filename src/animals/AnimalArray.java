@@ -2,7 +2,7 @@ package animals;
 
 import java.util.ArrayList;
 import java.util.Random;
-import animals.FarmAnimal;;
+import animals.FarmAnimal;
 // import Display class, use -cp to state root and enable import from subfolder packages
 
 public class AnimalArray {
