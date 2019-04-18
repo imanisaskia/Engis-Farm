@@ -2,8 +2,8 @@ package animals;
 
 import java.util.ArrayList;
 import java.util.Random;
-import animals.FarmAnimal;
-// import Display class, use -cp to state root and enable import from subfolder packages
+import java.io.Console;
+import display.Display;
 
 public class AnimalArray {
     /* Constants */
@@ -55,7 +55,7 @@ public class AnimalArray {
 
     /* Removes member at index x in the array */
     public void removeMember(int x) {
-        if (x > 0 && x < member.size()) {
+        if (x >= 0 && x < member.size()) {
             member.remove(x);
         }
     }
@@ -89,13 +89,15 @@ public class AnimalArray {
 
                 // Checking if destination is allowed and unoccupied
                 boolean occupied = false;
-                if (i == playerI && j == playerJ) {
+                if (i < 0 || i > 11 || j < 0 || j > 11) {
+                    occupied = true;
+                } else if (i == playerI && j == playerJ) {
                     occupied = true;
                 } else if (!d.checkLand(i, j, x.getAllowedLandType())) {
                     occupied = true;
                 } else {
                     int k = 0;
-                    while (!occupied) {
+                    while (!occupied && k < member.size()) {
                         if (member.get(k).getI() == i && member.get(k).getJ() == j) {
                             occupied = true;
                         } else {
@@ -120,7 +122,7 @@ public class AnimalArray {
             if (member.get(i).getHunger() < 5) {
                 member.get(i).setHunger(member.get(i).getHunger() + member.get(i).getHungerRate());
             } else {
-                member.get(i).setHunger(member.get(i).getHunger() + 1);
+                member.get(i).setHunger(member.get(i).getHunger() + 1.00);
             }
 
             if (member.get(i).getHunger() >= 10) {
@@ -148,4 +150,37 @@ public class AnimalArray {
         makeMembersEat(d);
         moveMembers(d, playerI, playerJ);
     }
+
+    /* Class driver */
+    public static void main (String args[]) {
+        AnimalArray animals = new AnimalArray();
+        Display d = new Display("display/Map.txt");
+        Console console = System.console();
+        String command = new String();
+        for (int i = 0; i < animals.getLength(); i++ ) {
+            System.out.print("(" + animals.getMember(i).getI() + "," + animals.getMember(i).getJ() + ") - ");
+            System.out.print(animals.getMember(i).getHunger() + " - ");
+            if (animals.getMember(i).isProductive()) {
+                System.out.println("Productive");
+            } else {
+                System.out.println("Unproductive");
+            }
+        }
+        console.readLine(command);
+        while (command != "q" && animals.getLength() != 0) {    
+            animals.tick(d, 0, 0);
+            for (int i = 0; i < animals.getLength(); i++ ) {
+                System.out.print("(" + animals.getMember(i).getI() + "," + animals.getMember(i).getJ() + ") - ");
+                System.out.print(animals.getMember(i).getHunger() + " - ");
+                if (animals.getMember(i).isProductive()) {
+                    System.out.println("Productive");
+                } else {
+                    System.out.println("Unproductive");
+                }
+            }
+            console.readLine(command);
+        }
+        System.out.println("----- ALL ANIMALS ARE DEAD -----");
+    }
+
 }
