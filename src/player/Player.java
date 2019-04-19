@@ -99,7 +99,7 @@ public class Player{
             FPInventory.add(new RabbitMeat());
         }
     }
-    
+
     /*Check FarmAnimal position and Land type, then take FarmProduct
     if exist and valid for Interact, return animal type(Chicken=1, Duck=2, Cow=3, Goat=4)
     else return type -999*/
@@ -137,7 +137,7 @@ public class Player{
         }
         return type;
     }
-        
+
     /*Take Water procedure*/
     public boolean interactWell(Display display, int idir, int jdir){
         boolean success=false;
@@ -204,4 +204,77 @@ public class Player{
         }
         return succ;
     }
+
+    /*Talk ke binatang yg ada di koordinat <i,j>*/
+    public String Talk(int i, int j, AnimalArray arr) {
+      int idx = arr.getNearbyAnimal(i,j);
+      if (idx != -999) {
+        return arr.getMember(idx).getNoise();
+      }
+      else {
+        return ("*sunyi*");
+      }
+    }
+
+    /*Kill binatang yg ada di koordinat <i,j>, nambahin ke inventory*/
+    public void Kill(int i, int j, AnimalArray arr) {
+      int idx = arr.getNearbyAnimal(i,j);
+      if (idx != -999) {
+        if (arr.getMember(idx) instanceof Chicken) {
+          arr.removeMember(idx);
+          FPInventory.add(new ChickenMeat());
+        }
+        else if (arr.getMember(idx) instanceof Cow) {
+          arr.removeMember(idx);
+          FPInventory.add(new CowMeat());
+        }
+        else if (arr.getMember(idx) instanceof Rabbit) {
+          arr.removeMember(idx);
+          FPInventory.add(new RabbitMeat());
+        }
+        else {
+          arr.removeMember(idx);
+          FPInventory.add(new PigMeat());
+        }
+      }
+    }
+
+    /*buat Walk player, ga dipanggil di main*/
+    public boolean isBisaDiinjek(int i, int j, Display D, AnimalArray arr) {
+      return (((D.checkLand(i,j,1) || D.checkLand(i,j,2) || D.checkLand(i,j,3))) && (arr.getNearbyAnimal(i,j) == -999));
+    }
+
+    /*jalan ke atas (U), bawah (D), kiri (L), kanan (R)*/
+    public void Walk(char walk, Display D, AnimalArray arr) {
+      if (walk == 'U' || walk == 'u') {
+        if ((getI() > 0) && (isBisaDiinjek(getI()-1, getJ(), D, arr))) {
+          setJ(J+1);
+        }
+      }
+      else if (walk == 'D' || walk == 'd') {
+        if ((getI() < 10) && (isBisaDiinjek(getI()+1, getJ(), D, arr))) {
+          setJ(J-1);
+        }
+      }
+      else if (walk == 'L' || walk == 'l') {
+        if ((getJ() > 0) && (isBisaDiinjek(getI(), getJ()-1, D, arr))) {
+          setI(I-1);
+        }
+      }
+      else if (walk == 'R' || walk == 'r') {
+        if ((getJ() < 10) && (isBisaDiinjek(getI(), getJ()+1, D, arr))) {
+          setI(I+1);
+        }
+      }
+    }
+
+    public boolean Grow(Display D) {
+      if ((D.checkLand(getI(),getJ(),1) || D.checkLand(getI(),getJ(),2) || D.checkLand(getI(),getJ(),3)) && !D.checkGrassy(getI(),getJ())) {
+        /*D.modifyGrassy(getI(),getJ());*/
+        setWater(getWater()-1);
+        return true;
+      }
+      else {return false;}
+    }
+
 }
