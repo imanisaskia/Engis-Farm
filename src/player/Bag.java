@@ -44,50 +44,6 @@ public class Bag<E>{
 	/* return a member of Bag on index*/
     public E getBelonging(int index){
 		 return belongings.get(index);
-	}
-	
-	/* remove FarmProduct element with type tipe from Bag*/
-	/*public void typeBasedRemove(int tipe, boolean success){
-		if(belongings.size()!=0){
-			int j =0;
-			boolean found=false;
-			while(j<belongings.size() && !(found)){
-				 if(belongings.get(j).getType() == tipe ){
-					found=true;
-				}else{
-					j++;
-				}
-			}
-			if(found){
-				belongings.remove(j);
-				success=true;
-			}else{
-				success=false;
-			}
-		}
-	}*/
-
-	/* remove SideProduct element with ingredient1 and ingredient2 from Bag*/
-	/*public void ingredientBasedRemove(int ingredient1, int ingredient2, boolean success){
-		if(belongings.size()!=0){
-			int j =0;
-			boolean found=false;
-			while(j<belongings.size() && !(found)){
-				 if(belongings.get(j).getIngredient1() == ingredient1 && belongings.get(j).getIngredient2() == ingredient2){
-					found=true;
-				}else{
-					j++;
-				}
-			}
-			if(found){
-				belongings.remove(j);
-				success=true;
-			}else{
-				success=false;
-			}
-		}
-	}*/
-
-	
+	}	
 }
 
