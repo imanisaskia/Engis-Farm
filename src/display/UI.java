@@ -1,22 +1,27 @@
+package display;
 
 import display.Grid;
 import display.Display;
+import player.Player;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import javax.swing.*;
 import java.awt.*;
+import javax.imageio.ImageIO;
+import java.net.URL;
+import java.awt.image.BufferedImage;
 
 public class UI extends JFrame implements ActionListener{
 	public static final int MAPSIZE = 11;
-	public static final String[] command = {"TALK" , "KILL", "MOVE", "INTERACT", "GROW", "MIX"};
+	public static final String[] command = { "MOVE UP", "MOVE RIGHT", "MOVE DOWN", "MOVE LEFT", "TALK UP", "TALK RIGHT", "TALK DOWN", "TALK LEFT", "KILL UP", "KILL RIGHT", "KILL DOWN", "KILL LEFT", "INTERACT UP", "INTERACT RIGHT", "INTERACT DOWN", "INTERACT LEFT", "GROW", "MIX"};
 
 	JPanel main = new JPanel(); /* Panel Utama */
 	JPanel gameP = new JPanel(); /* Panel Bagian Map dan Inventory Game */
-	JPanel mp = new JPanel(new GridLayout(11,11)); /* Panel untuk Bagian map */
+	JPanel mp = new JPanel(new GridLayout(11,16)); /* Panel untuk Bagian map */
 	JPanel inventP = new JPanel(); /* Panel untuk Bagian Inventory */
 	JPanel commandP = new JPanel(); /* Panel untuk bagian Command */
-	JLabel[][] lbl = new JLabel[MAPSIZE][MAPSIZE]; /* Label untuk map */
+	JLabel[][] lbl = new JLabel[MAPSIZE][MAPSIZE+6]; /* Label untuk map */
 	JLabel inventL= new JLabel("Inventory : ",JLabel.LEFT); /* Label untuk Inventory */
 	JLabel fp = new JLabel("",JLabel.LEFT); /* Label untuk farm product */
 	JLabel sp = new JLabel("",JLabel.LEFT); /* Label untuk side product  */
@@ -29,43 +34,100 @@ public class UI extends JFrame implements ActionListener{
 	JFrame over = new JFrame(); /* Frame untuk Game Over */
 	String filename;
 	Display d;
+	Player p;
 
-	public static void main (String[] args){
-		UI main = new UI();
+	/*Semua Icon yang dibutuhkan*/
+	Icon iconGrassland = new ImageIcon("display/img/grassland.png");
+	Icon iconGrass = new ImageIcon("display/img/grass.png");
+	Icon iconCoop = new ImageIcon("display/img/coop.png");
+	Icon iconBarn = new ImageIcon("display/img/barn.jpg");
+	Icon iconPlayer = new ImageIcon("display/img/player.png");
+	Icon iconWell = new ImageIcon("display/img/well.png");
+	Icon iconTruck = new ImageIcon("display/img/truck.png");
+	Icon iconMixer = new ImageIcon("display/img/mixer.png");
+	Icon iconChicken = new ImageIcon("display/img/chicken.png");
+	Icon iconHungryChicken = new ImageIcon("display/img/hungryChicken.png");
+	Icon iconCow = new ImageIcon("display/img/cow.png");
+	Icon iconHungryCow = new ImageIcon("display/img/hungryCow.png");
+	Icon iconDuck = new ImageIcon("display/img/duck.png");
+	Icon iconHungryDuck = new ImageIcon("display/img/hungryDuck.png");
+	Icon iconGoat = new ImageIcon("display/img/goat.png");
+	Icon iconHungryGoat = new ImageIcon("display/img/hungryGoat.png");
+	Icon iconPig = new ImageIcon("display/img/pig.png");
+	Icon iconHungryPig = new ImageIcon("display/img/hungryPig.png");
+	Icon iconRabbit = new ImageIcon("display/img/rabbit.png");
+	Icon iconHungryRabbit = new ImageIcon("display/img/hungryRabbit.png");
+
+	/*Icon dari 2 Icon lainnya */
+	ImageIcon coopGrass = mergedIcon(iconCoop, iconGrass);
+	ImageIcon barnGrass = mergedIcon(iconBarn, iconGrass);
+	ImageIcon truck = mergedIcon(iconGrassland, iconTruck);
+	ImageIcon well = mergedIcon(iconGrassland, iconWell);
+	ImageIcon mixer = mergedIcon(iconGrassland, iconMixer);
+	ImageIcon grass = mergedIcon(iconGrassland, iconGrass);	
+
+	/* Gambar yang diperlukan */
+	ImageIcon grassland = new ImageIcon("display/img/grassland.png");
+	ImageIcon coop = new ImageIcon("display/img/coop.png");
+	ImageIcon barn = new ImageIcon("display/img/barn.jpg");
+
+	/* Fungsi untuk menggabungkan 2 icon */
+	public ImageIcon mergedIcon(Icon bg, Icon fg){
+		Image imgBG = ((ImageIcon)bg).getImage();
+		Image imgFG = ((ImageIcon)fg).getImage();
+
+		BufferedImage temp =  new BufferedImage(imgBG.getWidth(null), imgBG.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) temp.getGraphics();
+		g.drawImage(imgBG, 0, 0, null);
+		g.drawImage(imgFG, 0, 0, null);
+		return (new ImageIcon(temp));	
 	}
 
-	public void setMap(Display d){
+	/* Prosedur untuk menampilkan Map*/
+	public void setMap(){
 		for (int i =0; i < MAPSIZE; i++){
 			for (int j = 0; j < MAPSIZE; j++ ){
 				if (d.getMap(i,j).getLand() && d.getMap(i,j).getType() == 3 && !d.getMap(i,j).getGrassy()){
-	                lbl[i][j].setText("o");
+	                lbl[i][j].setIcon(coop);
 	            } else 
 				if (d.getMap(i,j).getLand() && d.getMap(i,j).getType() == 2 && !d.getMap(i,j).getGrassy()){
-	                lbl[i][j].setText("x");
+					lbl[i][j].setIcon(barn);
 	            } else 
 	            if (d.getMap(i,j).getLand() && d.getMap(i,j).getType() == 1 && !d.getMap(i,j).getGrassy()){
-	                lbl[i][j].setText("-");
+	                lbl[i][j].setIcon(grassland);
 	            } else 
 	            if  (d.getMap(i,j).getLand() && d.getMap(i,j).getType() == 3 && d.getMap(i,j).getGrassy()){
-	                lbl[i][j].setText("[=]");
+	                lbl[i][j].setIcon(coopGrass);
 	            } else 
 	            if  (d.getMap(i,j).getLand() && d.getMap(i,j).getType() == 2 && d.getMap(i,j).getGrassy()){
-	                lbl[i][j].setText("[$]");
+	                lbl[i][j].setIcon(barnGrass);
 	            } else 
 	            if  (d.getMap(i,j).getLand() && d.getMap(i,j).getType() == 1 && d.getMap(i,j).getGrassy()){
-	                lbl[i][j].setText("[#]");
+	                lbl[i][j].setIcon(grass);
 	            }else
 	            if (d.getMap(i,j).getFacility() && d.getMap(i,j).getType() == 1){
-	                lbl[i][j].setText("[W]");
+	                lbl[i][j].setIcon(well);
 	            }else
 	            if (d.getMap(i,j).getFacility() && d.getMap(i,j).getType() == 2){
-	                lbl[i][j].setText("[M]");
+	                lbl[i][j].setIcon(mixer);
 	            }else
 	            if (d.getMap(i,j).getFacility() && d.getMap(i,j).getType() == 3){
-	                lbl[i][j].setText("[T]");
-	            }
+					lbl[i][j].setIcon(truck);
+				}
+				if (i == p.getI() && j == p.getJ()){
+					lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconPlayer));
+				}
+				//set buat binatang
 			}
 		}
+	}
+
+	/* Prosedur untuk menampilkan inventory */
+	public void setInvent(){
+		waterL.setText(String.valueOf(p.getWater()));
+		moneyL.setText(String.valueOf(p.getMoney()));
+
+		//set buat inventory
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -77,14 +139,15 @@ public class UI extends JFrame implements ActionListener{
 			boolean exist = false;
 			while (!exist){
 				if (filename == null){
-					System.out.print("Keluar dong");
 					System.exit(0);
 				} else{
 					try {
 						if (filename.length() >0){
 							d = new Display(filename);
+							p = new Player();
 							exist = true;
-							setMap(d);
+							setMap();
+							setInvent();
 						} else {
 							JOptionPane.showMessageDialog(title,"Please Input Map txt File");
 						filename= (String)JOptionPane.showInputDialog(title,"Input your Map txt file name (include the '.txt') : ","Map Input", JOptionPane.PLAIN_MESSAGE);
@@ -92,24 +155,41 @@ public class UI extends JFrame implements ActionListener{
 					} catch (NullPointerException ex) {
 						JOptionPane.showMessageDialog(title,"Please Input the right Map txt File (Map size has to be 11 x 11)");
 						filename= (String)JOptionPane.showInputDialog(title,"Input your Map txt file name (include the '.txt') : ","Map Input", JOptionPane.PLAIN_MESSAGE);
-					}	
+					}
+					title.dispose();
+					this.setVisible(true);	
 				}
-				
-
 			}
-			title.dispose();
-			this.setVisible(true);
 		} else 
 		if (act.equals("Command")){
 			//if masih ada animal
-	        	String command = (String)commandList.getSelectedItem();
+				String command = (String)commandList.getSelectedItem();
+				if (command == "MOVE UP"){
+					p.setI(p.getI()-1);
+				} else 
+				if (command == "MOVE RIGHT"){
+					p.setJ(p.getJ()+1);
+				} else 
+				if (command == "MOVE DOWN"){
+					p.setI(p.getI()+1);
+				} else 
+				if (command == "MOVE LEFT"){
+					p.setJ(p.getJ()-1);
+				} else {
+					response.setText("Belum ready gan !");
+				}
+
+				//tik 
+				setMap();
+				// set invent
+
 	        	//if command = a {} else etc
 	        //if animal gada, this.dispose() over.setVisible(true);
 		}
 	}
 
 	public UI(){
-		super("Engi's Farm");
+		super("Engi's Farm - Ciwi Bandung");
 
 		int i,j;
 
@@ -155,13 +235,12 @@ public class UI extends JFrame implements ActionListener{
 
 		/* Label untuk setiap Map */
 		for (i = 0; i < MAPSIZE; i ++){
-			for (j = 0; j < MAPSIZE; j++){
+			for (j = 0; j < MAPSIZE+6; j++){
 				//Hardcode dulu, harusnya text bergantung pada Grid
-				lbl[j][i] = new JLabel("",JLabel.CENTER);
-				lbl[j][i].setText("[o]");
-				lbl[j][i].setOpaque(true);
-				lbl[j][i].setBackground(Color.GREEN);
-				mp.add(lbl[j][i]);
+				lbl[i][j] = new JLabel("",JLabel.CENTER);
+				lbl[i][j].setOpaque(true);
+//				lbl[i][j].setBackground(Color.GREEN);
+				mp.add(lbl[i][j]);
 			}
 		}
 
