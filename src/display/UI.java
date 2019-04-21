@@ -36,7 +36,7 @@ public class UI extends JFrame implements ActionListener{
 	String filename;
 	Display d;
 	Player p;
-	AnimalArray animalArray = new AnimalArray();
+	AnimalArray animals = new AnimalArray();
 
 
 	/*Semua Icon yang dibutuhkan*/
@@ -120,9 +120,40 @@ public class UI extends JFrame implements ActionListener{
 				if (i == p.getI() && j == p.getJ()){
 					lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconPlayer));
 				}
-				//set buat binatang
 			}
 		}
+		for (int k = 0; k < animals.getLength(); k++ ) {
+			if (animals.getMember(k) instanceof Chicken){
+				int i = animals.getMember(k).getI();
+				int j = animals.getMember(k).getJ();
+				lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconChicken));
+			} else
+			if (animals.getMember(k) instanceof Cow){
+				int i = animals.getMember(k).getI();
+				int j = animals.getMember(k).getJ();
+				lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconCow));
+			} else
+			if (animals.getMember(k) instanceof Duck){
+				int i = animals.getMember(k).getI();
+				int j = animals.getMember(k).getJ();
+				lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconDuck));
+			} else
+			if (animals.getMember(k) instanceof Goat){
+				int i = animals.getMember(k).getI();
+				int j = animals.getMember(k).getJ();
+				lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconGoat));
+			} else
+			if (animals.getMember(k) instanceof Pig){
+				int i = animals.getMember(k).getI();
+				int j = animals.getMember(k).getJ();
+				lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconPig));
+			} else
+			if (animals.getMember(k) instanceof Rabbit){
+				int i = animals.getMember(k).getI();
+				int j = animals.getMember(k).getJ();
+				lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconRabbit));
+			}
+        }
 	}
 
 	/* Prosedur untuk menampilkan inventory */
@@ -146,7 +177,7 @@ public class UI extends JFrame implements ActionListener{
 			// 	} else{
 					d = new Display("display/Map.txt");
 					p = new Player();
-					//exist = true;
+					animals.tick(d,p.getI(),p.getJ());
 					setMap();
 					setInvent();
 					title.dispose();
@@ -158,16 +189,16 @@ public class UI extends JFrame implements ActionListener{
 			//if masih ada animal
 				String command = (String)commandList.getSelectedItem();
 				if (command == "MOVE UP"){
-					p.walk('u',d, animalArray);
+					p.walk('u',d, animals);
 				} else 
 				if (command == "MOVE RIGHT"){
-					p.walk('r',d, animalArray);
+					p.walk('r',d, animals);
 				} else 
 				if (command == "MOVE DOWN"){
-					p.walk('d',d, animalArray);
+					p.walk('d',d, animals);
 				} else 
 				if (command == "MOVE LEFT"){
-					p.walk('l',d, animalArray);
+					p.walk('l',d, animals);
 				} else
 				if (command == "GROW"){
 					if (p.grow(d)){
@@ -200,13 +231,8 @@ public class UI extends JFrame implements ActionListener{
 		JPanel titleP = new JPanel();
 		JLabel titleL = new JLabel("",JLabel.CENTER);
 		titleL.setIcon(new ImageIcon("display/img/engi.png"));
-		//String t = ("<html><span style='font-size:20px'>.....(`-')  _<-. (`-')_             _          (`-').-> <br>.....( OO).-/   \\( OO) )    .->    (_)    ,--. ( OO)_ <br>....(,------.,--./ ,--/  ,---(`-') ,-(`-')\\  |(_)--\\_) <br>.....|  .-----'|   \\ |  | '  .-(OO ) | ( OO) `-'/    _ / <br>....(|  '--. |  . '|  |)|  | .-, \\ |  |  )    \\_..`--. <br>.....|  .--' |  |\\    | |  | '.(_/(|  |_/     .-._)   \\ <br>.....|  `---.|  | \\   | |  '-'  |  |  |'->    \\       / <br>.....------'`--'  `--'  `-----'   `--'        `-----'</span></html>");
-		//String t = ("<html><span style='font-size:20px'>,------.               ,--.,--.       <br>|  .---',--,--,  ,---. `--'|  |,---.  <br></span></html>");
-		//titleL.setText(t);
 		titleL.setPreferredSize(new Dimension (750,500));
 		titleP.add(titleL);
-//		filenameL.setText("Input your Map txt file name (include the '.txt') : ");
-		// titleP.add(filename);
 		JButton start = new JButton("Start");
 		start.setActionCommand("Start");
 		start.addActionListener(this);

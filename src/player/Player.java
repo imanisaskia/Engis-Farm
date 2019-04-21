@@ -217,7 +217,7 @@ public class Player{
     }
 
     /*Kill binatang yg ada di koordinat <i,j>, nambahin ke inventory*/
-    public void kll(int i, int j, AnimalArray arr) {
+    public void kill(int i, int j, AnimalArray arr) {
       int idx = arr.getNearbyAnimal(i,j);
       if (idx != -999) {
         if (arr.getMember(idx) instanceof Chicken) {
