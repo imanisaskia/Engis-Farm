@@ -169,21 +169,12 @@ public class UI extends JFrame implements ActionListener{
 		if (act.equals("Start")){
 			UIManager.put("OptionPane.cancelButtonText", "Exit");
 			Object[] options = {"OK", "Exit"};
-			// filename= (String)JOptionPane.showInputDialog(title,"Input your Map txt file name (include the '.txt') : ","Map Input", JOptionPane.PLAIN_MESSAGE);
-			// boolean exist = false;
-			// while (!exist){
-			// 	if (filename == null){
-			// 		System.exit(0);
-			// 	} else{
-					d = new Display("display/Map.txt");
-					p = new Player();
-					animals.tick(d,p.getI(),p.getJ());
-					setMap();
-					setInvent();
-					title.dispose();
-					this.setVisible(true);	
-			// 	}
-			// }
+			d = new Display("display/Map.txt");
+			p = new Player();
+			setMap();
+			setInvent();
+			title.dispose();
+			this.setVisible(true);	
 		} else 
 		if (act.equals("Command")){
 			//if masih ada animal
@@ -209,7 +200,7 @@ public class UI extends JFrame implements ActionListener{
 					response.setText("Belum ready gan !");
 				}
 
-				//tik 
+				animals.tick(d,p.getI(),p.getJ());
 				setMap();
 				// set invent
 
