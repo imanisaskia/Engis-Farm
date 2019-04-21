@@ -140,7 +140,7 @@ public class AnimalArray {
         }
     }
 
-    /** Makes animals eat if they are hungry (hunger >= 5) */
+    /** Makes animals eat if they are hungry (hunger is 5 or more) */
     public void makeMembersEat(Display d) {
         for (FarmAnimal x : member) {
             if (x.getHunger() >= 5) {
