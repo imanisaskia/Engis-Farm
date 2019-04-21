@@ -12,6 +12,10 @@ public class Display {
 	private Grid[][] map;
 	private int iTruck;
 	private int jTruck;
+	private int iWell;
+	private int jWell;
+	private int iMixer;
+	private int jMixer;
 	private String command;
 	
 	public Display(String filename){
@@ -82,6 +86,8 @@ public class Display {
 						map[i][j].setType(1);
 						map[i][j].setGrassy(false);
 						map[i][j].setUsedTruck(-999);
+						iWell = i;
+						jWell = j;
 					}else
 					if (line[i].charAt(j) == 'M'){
 						map[i][j].setLand(false);
@@ -89,6 +95,8 @@ public class Display {
 						map[i][j].setType(2);
 						map[i][j].setGrassy(false);
 						map[i][j].setUsedTruck(-999);
+						iMixer = i;
+						jMixer = j;
 					} else
 					if (line[i].charAt(j) == 'T'){
 						map[i][j].setLand(false);
@@ -159,6 +167,30 @@ public class Display {
 		Scanner c = new Scanner(System.in); 
 		String command = c.nextLine();
 		return command;
+	}
+
+	public int getITruck(){
+		return iTruck;
+	}
+
+	public int getJTruck(){
+		return jTruck;
+	}
+
+	public int getIMixer(){
+		return iMixer;
+	}
+
+	public int getJMixer(){
+		return jMixer;
+	}
+
+	public int getIWell(){
+		return iWell;
+	}
+
+	public int getJWell(){
+		return jWell;
 	}
 
 	// public static void main (String[] args){
