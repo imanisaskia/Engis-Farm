@@ -1,7 +1,7 @@
 package animals;
 
 /** General class for farm animal. Methods include getters and setters for animal properties such as location, hunger, and productivity.
- * @author: Saskia Imani (13517142)
+ * @author Saskia Imani (13517142)
  */
 abstract public class FarmAnimal {
     private int i, j;

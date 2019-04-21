@@ -6,7 +6,7 @@ import java.io.Console;
 import display.Display;
 
 /** Array to contain animals. The only class to be instantiated during the main program's execution. Methods include animals and length getter, method to add new animals, find animal at certain location, remove animals, and progress the array one 'tick' ahead.
- * @author: Saskia Imani (13517142)
+ * @author Saskia Imani (13517142)
  */
 public class AnimalArray {
     /** Constants */
@@ -125,7 +125,7 @@ public class AnimalArray {
         }
     }
 
-    /** Increases animal hunger by hunger rate (if < 5) or by 1 (if >= 5) */
+    /** Increases animal hunger by hunger rate (if less than 5) or by 1 (if 5 or more) */
     public void increaseHunger() {
         for (int i = 0; i < getLength(); i++) {
             if (member.get(i).getHunger() < 5) {
