@@ -105,7 +105,7 @@ public class Player{
     else return type -999*/
     public int interactAnimal(AnimalArray arranimal,Display display, int idir, int jdir){
         int type=-999;
-        if(idir>=0 && idir<=10 && jdir>=0 && jdir<=10){
+        if(idir>=0 && idir<Display.MAPROW && jdir>=0 && jdir<Display.MAPCOL){
             int i = arranimal.getNearbyAnimal(idir,jdir);
             if(i!=-999){
                 if(arranimal.getMember(i) instanceof Chicken && display.checkLand(idir,jdir,3)){
@@ -141,7 +141,7 @@ public class Player{
     /*Take Water procedure*/
     public boolean interactWell(Display display, int idir, int jdir){
         boolean success=false;
-        if(idir>=0 && jdir<=10 && idir>=0 && jdir<=10){
+        if(idir>=0 && idir<Display.MAPROW && jdir>=0 && jdir<Display.MAPCOL){
             boolean Facility=false;
             Facility=display.checkFacility(idir,jdir,1);
             if(Facility && Water!= MAX_WATER){
@@ -160,7 +160,7 @@ public class Player{
     /*Sell all products procedure*/
     public boolean InteractTruck(Display display, int idir, int jdir){
         boolean success = false;
-        if(idir>=0 && idir<=10 && jdir>=0 && jdir<=10){
+        if(idir>=0 && idir<Display.MAPROW && jdir>=0 && jdir<Display.MAPCOL){
             boolean Facility=display.checkFacility(idir,jdir,3);
             boolean check=display.checkUsedTruck(idir,jdir);
             if(Facility && check){
@@ -183,7 +183,7 @@ public class Player{
     /*Mix to get SideProduct*/
     public boolean mix(Display display, SideProduct sideproduct, int idir, int jdir){
         boolean succ = false;
-        if(idir>=0 && idir<=10 && jdir>=0 && jdir<=10){
+        if(idir>=0 && idir<Display.MAPROW && jdir>=0 && jdir<Display.MAPCOL){
             boolean Facility=display.checkFacility(idir,jdir,2);
             if(Facility){
                 int ing1 = sideproduct.getIngredient1();
