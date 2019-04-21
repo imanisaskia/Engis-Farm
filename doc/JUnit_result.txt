@@ -1,0 +1,12 @@
+testInteractWell
+testInteractAnimal
+testMix
+testKill
+testTalk
+testPlayerWalkRight
+testPlayerWalkDown
+testPlayerWalkLeft
+testInteractTruck
+testPlayerWalkUp
+
+true
