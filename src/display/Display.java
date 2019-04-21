@@ -145,7 +145,7 @@ public class Display {
 	}
 
 	public boolean checkUsedTruck(int i, int j){
-		return (map[i][j].getUsedTruck() == 0);
+		return (map[i][j].getUsedTruck() == 0 && map[i][j].useTruck());
 	}
 
 	public void modifyGrassy(int i, int j){
@@ -153,11 +153,12 @@ public class Display {
 	}
 
 	public void modifyUsedTruck(int i, int j){
-		map[i][j].useTruck();
+		map[i][j].setUsedTruck(5);
 	}
 
 	public void lessenTruck(){
 		if (map[iTruck][jTruck].getUsedTruck() > 0){
+			
 			map[iTruck][jTruck].setUsedTruck(map[iTruck][jTruck].getUsedTruck() - 1);
 		}
 	}

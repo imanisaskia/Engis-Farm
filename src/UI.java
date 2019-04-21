@@ -250,6 +250,7 @@ public class UI extends JFrame implements ActionListener{
 		} else 
 		if (act.equals("Command")){
 			animals.tick(d,p.getI(),p.getJ());
+			d.lessenTruck();
 			response.setText("");
 			if (animals.getLength()>0){
 				String command = (String)commandList.getSelectedItem();
@@ -330,12 +331,12 @@ public class UI extends JFrame implements ActionListener{
 							j -=1;
 						}
 						int type = p.interactAnimal(animals, d, i, j);
-						System.out.println(type);
 						if (type == -999){
 							boolean success = p.interactWell(d,i,j);
 							if (!success){
 								success = p.interactTruck(d,i,j);
 								if (success){
+									d.getMap(d.getITruck(),d.getJTruck()).setUsedTruck(5);
 									response.setText("You sold all of your product(s) ! Here your money !");
 								} else {
 									response.setText("OH NO ! Interact failed !");
