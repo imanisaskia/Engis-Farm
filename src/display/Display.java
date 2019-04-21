@@ -6,7 +6,8 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Display {
-	public static final int MAPSIZE = 11;
+	public static final int MAPROW = 11;
+	public static final int MAPCOL = 16;
 
 	private Grid[][] map;
 	private int iTruck;
@@ -17,7 +18,7 @@ public class Display {
 		File file = new File(filename); 
 		try	{
 			Scanner sc = new Scanner(file);
-			String line[] = new String[MAPSIZE];
+			String line[] = new String[MAPCOL];
 			int i = 0;
 			int j = 0;
 			command = "";
@@ -25,14 +26,14 @@ public class Display {
 				line[i] = sc.nextLine();
 				i ++;
 			}
-			map = new Grid [MAPSIZE][MAPSIZE];
-			for (i = 0; i < MAPSIZE; i++){
-				for (j =0; j < MAPSIZE; j++){
+			map = new Grid[MAPROW][MAPCOL];
+			for (i = 0; i < MAPROW; i++){
+				for (j =0; j < MAPCOL; j++){
 					map[i][j] = new Grid();
 				}
 			}
-			for (i = 0; i < MAPSIZE; i++){
-				for (j = 0; j < MAPSIZE; j ++){
+			for (i = 0; i < MAPROW; i++){
+				for (j = 0; j < MAPCOL; j ++){
 					if (line[i].charAt(j) == 'o'){
 						map[i][j].setLand(true);
 						map[i][j].setFacility(false);
@@ -98,18 +99,15 @@ public class Display {
 						iTruck = i;
 						jTruck = j;
 					} else {
-						map[0][0].setType(-1002);
 						System.out.println("map format is wrong.");
 						break;
 					}
 				}
+				System.out.println();
 			}
 		} catch (FileNotFoundException ex) {
-			map[0][0].setType(-1001);
 			System.out.println(ex);
-		}
-
-		
+		}		
 	}
 
 	public Grid getMap(int i, int j){
@@ -164,15 +162,15 @@ public class Display {
 		return command;
 	}
 
-	public static void main (String[] args){
-		Display d = new Display("Map.txt");
-		for (int i = 0; i < MAPSIZE; i++){
-			for (int j = 0; j < MAPSIZE; j++){
-				System.out.print(d.map[i][j].getType());
-			}
-			System.out.println();
-		}
-		String x = d.getCommand();
-		System.out.println(x);
-	}
+	// public static void main (String[] args){
+	// 	Display d = new Display("Map.txt");
+	// 	for (int i = 0; i < MAPROW; i++){
+	// 		for (int j = 0; j < MAPCOL; j++){
+	// 			System.out.print(d.map[i][j].getType());
+	// 		}
+	// 		System.out.println();
+	// 	}
+	// 	String x = d.getCommand();
+	// 	System.out.println(x);
+	// }
 }

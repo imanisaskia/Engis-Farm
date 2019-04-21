@@ -2,6 +2,7 @@ package display;
 
 import display.Grid;
 import display.Display;
+
 import player.Player;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,15 +14,14 @@ import java.net.URL;
 import java.awt.image.BufferedImage;
 
 public class UI extends JFrame implements ActionListener{
-	public static final int MAPSIZE = 11;
 	public static final String[] command = { "MOVE UP", "MOVE RIGHT", "MOVE DOWN", "MOVE LEFT", "TALK UP", "TALK RIGHT", "TALK DOWN", "TALK LEFT", "KILL UP", "KILL RIGHT", "KILL DOWN", "KILL LEFT", "INTERACT UP", "INTERACT RIGHT", "INTERACT DOWN", "INTERACT LEFT", "GROW", "MIX"};
 
 	JPanel main = new JPanel(); /* Panel Utama */
 	JPanel gameP = new JPanel(); /* Panel Bagian Map dan Inventory Game */
-	JPanel mp = new JPanel(new GridLayout(11,16)); /* Panel untuk Bagian map */
+	JPanel mp = new JPanel(new GridLayout(Display.MAPROW,Display.MAPCOL)); /* Panel untuk Bagian map */
 	JPanel inventP = new JPanel(); /* Panel untuk Bagian Inventory */
 	JPanel commandP = new JPanel(); /* Panel untuk bagian Command */
-	JLabel[][] lbl = new JLabel[MAPSIZE][MAPSIZE+6]; /* Label untuk map */
+	JLabel[][] lbl = new JLabel[Display.MAPROW][Display.MAPCOL]; /* Label untuk map */
 	JLabel inventL= new JLabel("Inventory : ",JLabel.LEFT); /* Label untuk Inventory */
 	JLabel fp = new JLabel("",JLabel.LEFT); /* Label untuk farm product */
 	JLabel sp = new JLabel("",JLabel.LEFT); /* Label untuk side product  */
@@ -85,8 +85,8 @@ public class UI extends JFrame implements ActionListener{
 
 	/* Prosedur untuk menampilkan Map*/
 	public void setMap(){
-		for (int i =0; i < MAPSIZE; i++){
-			for (int j = 0; j < MAPSIZE; j++ ){
+		for (int i =0; i < Display.MAPROW; i++){
+			for (int j = 0; j < Display.MAPCOL; j++ ){
 				if (d.getMap(i,j).getLand() && d.getMap(i,j).getType() == 3 && !d.getMap(i,j).getGrassy()){
 	                lbl[i][j].setIcon(coop);
 	            } else 
@@ -234,8 +234,8 @@ public class UI extends JFrame implements ActionListener{
 		gameP.setLayout(new BorderLayout());
 
 		/* Label untuk setiap Map */
-		for (i = 0; i < MAPSIZE; i ++){
-			for (j = 0; j < MAPSIZE+6; j++){
+		for (i = 0; i < Display.MAPROW; i ++){
+			for (j = 0; j < Display.MAPCOL; j++){
 				//Hardcode dulu, harusnya text bergantung pada Grid
 				lbl[i][j] = new JLabel("",JLabel.CENTER);
 				lbl[i][j].setOpaque(true);
