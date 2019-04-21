@@ -2,6 +2,11 @@ package display;
 
 import java.util.*;
 
+/**
+ * Kelas Grid terdiri dari atribut land, facility, type, grassy, dan used Truck
+ * Kelas Grid digunakan untuk mendefinisikan setiap petak pada map
+ * @author Karina iswara (13517031)
+ */
 public class Grid{
 	private boolean land;
 	private boolean facility;
@@ -49,6 +54,7 @@ public class Grid{
 		usedTruck = ut;
 	}
 
+	/* untuk mengecek apakah Truck dapat digunakan */
 	public boolean useTruck(){
 		if (usedTruck == 0){
 			return true;

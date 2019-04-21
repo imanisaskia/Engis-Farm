@@ -5,6 +5,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Kelas Display terdiri dari atribut map, iTruck, jTruck,iWell, jWell, iMixer, jMixer, command
+ * Kelas Grid digunakan untuk mendefinisikan seluruh peta pada map
+ * @author Karina iswara (13517031)
+ */
 public class Display {
 	public static final int MAPROW = 11;
 	public static final int MAPCOL = 16;
