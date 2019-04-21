@@ -104,8 +104,8 @@ public class Player{
     }
 
     /**Check FarmAnimal position and Land type, then take FarmProduct
-    if exist and valid for Interact, return animal type(Chicken=1, Duck=2, Cow=3, Goat=4)
-    else return type -999*/
+    * if exist and valid for Interact, return animal type(Chicken=1, Duck=2, Cow=3, Goat=4)
+    * else return type -999 */
     public int interactAnimal(AnimalArray arranimal,Display display, int idir, int jdir){
         int type=-999;
         if(idir>=0 && idir<Display.MAPROW && jdir>=0 && jdir<Display.MAPCOL){
@@ -208,7 +208,7 @@ public class Player{
         return succ;
     }
 
-    /**Talk ke binatang yg ada di koordinat <i,j>*/
+    /** Talk to animal in position i,j. */
     public String talk(int i, int j, AnimalArray arr) {
       int idx = arr.getNearbyAnimal(i,j);
       if (idx != -999) {
@@ -219,7 +219,7 @@ public class Player{
       }
     }
 
-    /**Kill binatang yg ada di koordinat <i,j>, nambahin ke inventory*/
+    /** Kill animal at position i,j; add animal's meat to inventory*/
     public void kill(int i, int j, AnimalArray arr) {
       int idx = arr.getNearbyAnimal(i,j);
       if (idx != -999) {
@@ -234,12 +234,13 @@ public class Player{
       }
     }
 
-    /**buat Walk player, ga dipanggil di main*/
+    /**Check if player destination is allowed for walking.
+     * Called in walk, unused by the main program. */
     public boolean isBisaDiinjek(int i, int j, Display D, AnimalArray arr){
         return(((D.checkLand(i,j,1) || D.checkLand(i,j,2) || D.checkLand(i,j,3))) && (arr.getNearbyAnimal(i,j) == -999));
     }
 
-    /*jalan ke atas (U), bawah (D), kiri (L), kanan (R)*/
+    /** Move player up (U), down (D), left (L), or right (R)*/
     public void walk(char walk, Display D, AnimalArray arr) {
       if (walk == 'R' || walk == 'r') {
         if (getJ() < Display.MAPCOL){
@@ -271,7 +272,7 @@ public class Player{
       }
     }
 
-    /*Menumbuhkan rumput di tempat player berdiri*/
+    /** Grows grass in player's position. */
     public boolean grow(Display D) {
       if ((D.checkLand(getI(),getJ(),1) || D.checkLand(getI(),getJ(),2) || D.checkLand(getI(),getJ(),3)) && getWater() >0 && !D.checkGrassy(getI(),getJ())) {
         /*D.modifyGrassy(getI(),getJ());*/
