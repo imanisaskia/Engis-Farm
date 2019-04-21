@@ -1,9 +1,8 @@
-package display;
-
-import display.Grid;
-import display.Display;
-import player.Player;
+import display.*;
+import player.*;
 import animals.*;
+import farm_products.*;
+import side_products.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +14,8 @@ import java.net.URL;
 import java.awt.image.BufferedImage;
 
 public class UI extends JFrame implements ActionListener{
-	public static final String[] command = { "MOVE UP", "MOVE RIGHT", "MOVE DOWN", "MOVE LEFT", "TALK UP", "TALK RIGHT", "TALK DOWN", "TALK LEFT", "KILL UP", "KILL RIGHT", "KILL DOWN", "KILL LEFT", "INTERACT UP", "INTERACT RIGHT", "INTERACT DOWN", "INTERACT LEFT", "GROW", "MIX"};
+	public static final String[] command = { "MOVE", "TALK", "KILL", "INTERACT", "GROW", "MIX"};
+	public static final String[] dirs = {"Up", "Right", "Down", "Left"};
 
 	JPanel main = new JPanel(); /* Panel Utama */
 	JPanel gameP = new JPanel(); /* Panel Bagian Map dan Inventory Game */
@@ -37,7 +37,6 @@ public class UI extends JFrame implements ActionListener{
 	Display d;
 	Player p;
 	AnimalArray animals = new AnimalArray();
-
 
 	/*Semua Icon yang dibutuhkan*/
 	Icon iconGrassland = new ImageIcon("display/img/grassland.png");
@@ -73,6 +72,10 @@ public class UI extends JFrame implements ActionListener{
 	ImageIcon grassland = new ImageIcon("display/img/grassland.png");
 	ImageIcon coop = new ImageIcon("display/img/coop.png");
 	ImageIcon barn = new ImageIcon("display/img/barn.jpg");
+
+	public static void main(String[] args){
+		UI main = new UI();
+	}
 
 	/* Fungsi untuk menggabungkan 2 icon */
 	public ImageIcon mergedIcon(Icon bg, Icon fg){
@@ -126,32 +129,56 @@ public class UI extends JFrame implements ActionListener{
 			if (animals.getMember(k) instanceof Chicken){
 				int i = animals.getMember(k).getI();
 				int j = animals.getMember(k).getJ();
-				lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconChicken));
+				if (animals.getMember(k).getHunger() > 5){
+					lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconHungryChicken));	
+				} else {
+					lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconChicken));
+				}
 			} else
 			if (animals.getMember(k) instanceof Cow){
 				int i = animals.getMember(k).getI();
 				int j = animals.getMember(k).getJ();
-				lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconCow));
+				if (animals.getMember(k).getHunger() > 5){
+					lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconHungryCow));	
+				} else {
+					lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconCow));
+				}
 			} else
 			if (animals.getMember(k) instanceof Duck){
 				int i = animals.getMember(k).getI();
 				int j = animals.getMember(k).getJ();
-				lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconDuck));
+				if (animals.getMember(k).getHunger() > 5){
+					lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconHungryDuck));	
+				} else {
+					lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconDuck));
+				}
 			} else
 			if (animals.getMember(k) instanceof Goat){
 				int i = animals.getMember(k).getI();
 				int j = animals.getMember(k).getJ();
-				lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconGoat));
+				if (animals.getMember(k).getHunger() > 5){
+					lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconHungryGoat));
+				} else {
+					lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconGoat));
+				}
 			} else
 			if (animals.getMember(k) instanceof Pig){
 				int i = animals.getMember(k).getI();
 				int j = animals.getMember(k).getJ();
-				lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconPig));
+				if (animals.getMember(k).getHunger() > 5){
+					lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconHungryPig));
+				} else {
+					lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconPig));
+				}
 			} else
 			if (animals.getMember(k) instanceof Rabbit){
 				int i = animals.getMember(k).getI();
 				int j = animals.getMember(k).getJ();
-				lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconRabbit));
+				if (animals.getMember(k).getHunger() > 5){
+					lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconHungryRabbit));
+				} else {
+					lbl[i][j].setIcon(mergedIcon(lbl[i][j].getIcon(), iconRabbit));
+				}
 			}
         }
 	}
@@ -161,7 +188,52 @@ public class UI extends JFrame implements ActionListener{
 		waterL.setText(String.valueOf(p.getWater()));
 		moneyL.setText(String.valueOf(p.getMoney()));
 
-		//set buat inventory
+		String FP = "<html>";
+		for (int i = 0; i < p.getBagFP().getSize(); i++){
+			if(p.getBagFP().getBelonging(i).getType()==1){
+				FP = FP + "Chicken Egg";
+			} else
+			if(p.getBagFP().getBelonging(i).getType()==2){
+				FP = FP + "Duck Egg";
+			} else
+			if(p.getBagFP().getBelonging(i).getType()==3){
+				FP = FP + "Cow Milk";
+			}  else
+			if(p.getBagFP().getBelonging(i).getType()==4){
+				FP = FP + "Goat Milk";
+			}  else
+			if(p.getBagFP().getBelonging(i).getType()==5){
+				FP = FP + "Pig Meat";
+			} else
+			if(p.getBagFP().getBelonging(i).getType()==6){
+				FP = FP + "Rabbit Meat";
+			}
+			if (i != p.getBagFP().getSize()){
+				FP = FP + "<br>";
+			}
+		}
+		FP = FP + " </html>";
+		fp.setText(FP);
+		String SP = "<html>";
+		for (int i = 0; i < p.getBagSP().getSize(); i++){
+			if(p.getBagSP().getBelonging(i) instanceof RabbitStew){
+				SP = SP + "Rabit Stew";
+			} else
+			if(p.getBagSP().getBelonging(i) instanceof PorkStew){
+				SP = SP + "Pork Stew";
+			} else
+			if(p.getBagSP().getBelonging(i) instanceof Omlette){
+				SP = SP + "Omlette";
+			} else
+			if(p.getBagSP().getBelonging(i) instanceof Skewer){
+				SP = SP + "Skewer";
+			}
+			if (i != p.getBagSP().getSize()){
+				SP = SP + "<br>";
+			}
+		}
+		SP = SP + "</html>";
+		sp.setText(SP);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -177,35 +249,170 @@ public class UI extends JFrame implements ActionListener{
 			this.setVisible(true);	
 		} else 
 		if (act.equals("Command")){
-			//if masih ada animal
+			animals.tick(d,p.getI(),p.getJ());
+			response.setText("");
+			if (animals.getLength()>0){
 				String command = (String)commandList.getSelectedItem();
-				if (command == "MOVE UP"){
-					p.walk('u',d, animals);
+				if (command == "MOVE"){
+					String dir = (String)JOptionPane.showInputDialog(this,"Which direction do you wanna move ?", "Move Directions",JOptionPane.PLAIN_MESSAGE,	null, dirs,"Up");
+					if (dir != null){
+						char direct = 'x';
+						if (dir == "Up"){
+							direct = 'u';
+						} else
+						if (dir == "Right"){
+							direct = 'r';
+						} else
+						if (dir == "Down"){
+							direct = 'd';
+						} else
+						if (dir == "Left"){
+							direct = 'l';
+						}
+						p.walk(direct,d, animals);
+					}	
 				} else 
-				if (command == "MOVE RIGHT"){
-					p.walk('r',d, animals);
+				if (command == "TALK"){
+					String dir = (String)JOptionPane.showInputDialog(this,"Which direction do you wanna talk ?", "Move Directions",JOptionPane.PLAIN_MESSAGE,	null, dirs,"Up");
+					if (dir != null){
+						int i = p.getI();
+						int j = p.getJ();
+						if (dir == "Up"){
+							i -= 1;
+						} else
+						if (dir == "Right"){
+							j +=1;
+						} else
+						if (dir == "Down"){
+							i +=1;
+						} else
+						if (dir == "Left"){
+							j -=1;
+						}
+						response.setText(p.talk(i,j,animals));
+					}
+				}else
+				if (command == "KILL"){
+					String dir = (String)JOptionPane.showInputDialog(this,"Which direction do you wanna kill ?", "Move Directions",JOptionPane.PLAIN_MESSAGE,	null, dirs,"Up");
+					if (dir != null){
+						int i = p.getI();
+						int j = p.getJ();
+						if (dir == "Up"){
+							i -= 1;
+						} else
+						if (dir == "Right"){
+							j +=1;
+						} else
+						if (dir == "Down"){
+							i +=1;
+						} else
+						if (dir == "Left"){
+							j -=1;
+						}
+						p.kill(i,j,animals);
+					}
 				} else 
-				if (command == "MOVE DOWN"){
-					p.walk('d',d, animals);
-				} else 
-				if (command == "MOVE LEFT"){
-					p.walk('l',d, animals);
+				if (command == "INTERACT"){
+					String dir = (String)JOptionPane.showInputDialog(this,"Which direction do you wanna interact ?", "Move Directions",JOptionPane.PLAIN_MESSAGE,	null, dirs,"Up");
+					if (dir != null){
+						int i = p.getI();
+						int j = p.getJ();
+						if (dir == "Up"){
+							i -= 1;
+						} else
+						if (dir == "Right"){
+							j +=1;
+						} else
+						if (dir == "Down"){
+							i +=1;
+						} else
+						if (dir == "Left"){
+							j -=1;
+						}
+						int type = p.interactAnimal(animals, d, i, j);
+						System.out.println(type);
+						if (type == -999){
+							boolean success = p.interactWell(d,i,j);
+							if (!success){
+								success = p.interactTruck(d,i,j);
+								if (success){
+									response.setText("You sold all of your product(s) ! Here your money !");
+								} else {
+									response.setText("OH NO ! Interact failed !");
+								}
+							} else {
+								response.setText("You got some water my friend ! Keep being hydrated (@grass)!");
+							}
+						} else {
+							if (type ==1 ){
+								response.setText("You got 1 chicken egg ! Well done !");
+							} else 
+							if (type == 2){
+								response.setText("You got 1 duck egg ! Well done !");
+							} else 
+							if (type == 3){
+								response.setText("You got 1 unit of cow milk ! Well done !");
+							} else 
+							if (type == 4){
+								response.setText("You got 1 unit of goat milk ! Well done !");
+							}
+						}
+					}
 				} else
 				if (command == "GROW"){
 					if (p.grow(d)){
 						d.getMap(p.getI(), p.getJ()).setGrassy(true);
 					}
-				}
-				 else {
+				} else
+				if (command == "MIX"){
+					Object[] options = {"Rabbit Stew", "Pork Stew", "Omlette","Skewer"};
+					Object[] dirs = {"Up", "Right", "Down", "Left"};
+					String obj = (String)JOptionPane.showInputDialog(this,"What do you wanna mix ?", "Mix Options",JOptionPane.PLAIN_MESSAGE,	null, options,"Rabbit Stew");
+					String dir = (String)JOptionPane.showInputDialog(this,"Which direction do you wanna mix ?", "Mix Directions",JOptionPane.PLAIN_MESSAGE,	null, dirs,"Up");
+					if (obj != null){
+						boolean success = false;
+						int i = p.getI();
+						int j = p.getJ();
+						if (dir == "Up"){
+							i -= 1;
+						} else
+						if (dir == "Right"){
+							j += 1;
+						} else
+						if (dir == "Down"){
+							i += 1;
+						} else
+						if (dir == "Left"){
+							j -= 1;
+						}
+						if (obj == "Rabbit Stew"){
+							success = p.mix(d, new RabbitStew(),i,j);
+						} else
+						if (obj == "Pork Stew"){
+							success = p.mix(d, new PorkStew(),i,j);
+						} else
+						if (obj == "Omlette"){
+							success = p.mix(d, new Omlette(),i,j);
+						} else
+						if (obj == "Skewer"){
+							success = p.mix(d, new Skewer(),i,j);
+						}
+						if (success){
+							response.setText("You made "+ obj);
+						} else {
+							response.setText("OH NO ! Something went wrong.");
+						}
+					}
+				} else {
 					response.setText("Belum ready gan !");
 				}
 
-				animals.tick(d,p.getI(),p.getJ());
 				setMap();
-				// set invent
-
-	        	//if command = a {} else etc
-	        //if animal gada, this.dispose() over.setVisible(true);
+				setInvent();
+			} else {
+				this.dispose();
+				over.setVisible(true);
+			}
 		}
 	}
 
@@ -237,8 +444,7 @@ public class UI extends JFrame implements ActionListener{
 
 		/*Set Frame untuk tampilan Game Over*/
 		JLabel overL = new JLabel("",JLabel.CENTER);
-		String o = ("");
-		overL.setText(o);
+		overL.setIcon(new ImageIcon("display/img/over.png"));
 		overL.setPreferredSize(new Dimension (750,500));
 		over.setSize(800,600);
 		over.setResizable(true);
@@ -271,16 +477,16 @@ public class UI extends JFrame implements ActionListener{
 		fp.setVerticalAlignment(JLabel.TOP);
 		fp.setBorder(BorderFactory.createTitledBorder("Farm Product"));
 		//isi farm product di hardcode dulu
-		String fpText = "<html> Chicken Egg <br> Cow Milk <br> Duck Egg <br> Goat Milk <br> Rabbit Milk <br> Pig Meat <br> Cow Meat <br> </html>";
-		fp.setText(fpText);
+		//String fpText = "<html> Chicken Egg <br> Cow Milk <br> Duck Egg <br> Goat Milk <br> Rabbit Milk <br> Pig Meat <br> Cow Meat <br> </html>";
+		//fp.setText(fpText);
 		fp.setPreferredSize(new Dimension(180,145));
 
 		/*Pengisian Side Product*/
 		sp.setVerticalAlignment(JLabel.TOP);
 		sp.setBorder(BorderFactory.createTitledBorder("Side Product"));
 		//isi side product di hardcode dulu
-		String spText = ("<html> Beef Stew <br> Chicken and Egg Skewer <br> Pork Stew <br> Omlette <br> Chicken and Egg Skewer <br> Omlette <br> </html>");
-		sp.setText(spText);	
+		//String spText = ("<html> Beef Stew <br> Chicken and Egg Skewer <br> Pork Stew <br> Omlette <br> Chicken and Egg Skewer <br> Omlette <br> </html>");
+		//sp.setText(spText);	
 		sp.setPreferredSize(new Dimension(180,145));
 		
 		/*Pengisian Money*/

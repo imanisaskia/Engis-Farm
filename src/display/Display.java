@@ -122,6 +122,9 @@ public class Display {
 	}
 
 	public boolean checkLand(int i, int j, int type){
+		if (i < 0 || i >= MAPROW || j < 0 || j >= MAPCOL){
+			return false;			
+		}
 		if (map[i][j].getLand() && map[i][j].getType() == type){
 			return true;
 		} else {

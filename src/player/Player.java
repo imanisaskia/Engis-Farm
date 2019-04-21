@@ -220,7 +220,7 @@ public class Player{
           arr.removeMember(idx);
           FPInventory.add(new RabbitMeat());
         }
-        else {
+        else if (arr.getMember(idx) instanceof Pig){
           arr.removeMember(idx);
           FPInventory.add(new PigMeat());
         }
@@ -228,30 +228,38 @@ public class Player{
     }
 
     /*buat Walk player, ga dipanggil di main*/
-    public boolean isBisaDiinjek(int i, int j, Display D, AnimalArray arr) {
-      return (((D.checkLand(i,j,1) || D.checkLand(i,j,2) || D.checkLand(i,j,3))) && (arr.getNearbyAnimal(i,j) == -999));
+    public boolean isBisaDiinjek(int i, int j, Display D, AnimalArray arr){
+        return(((D.checkLand(i,j,1) || D.checkLand(i,j,2) || D.checkLand(i,j,3))) && (arr.getNearbyAnimal(i,j) == -999));
     }
 
     /*jalan ke atas (U), bawah (D), kiri (L), kanan (R)*/
     public void walk(char walk, Display D, AnimalArray arr) {
       if (walk == 'R' || walk == 'r') {
-        if ((getJ() < Display.MAPCOL) && (isBisaDiinjek(getI(), getJ()+J, D, arr))) {
-          setJ(J+1);
+        if (getJ() < Display.MAPCOL){
+            if (isBisaDiinjek(getI(), getJ()+1, D, arr)) {
+                setJ(J+1);
+            }
         }
       }
       else if (walk == 'L' || walk == 'l') {
-        if ((getJ() > 0) && (isBisaDiinjek(getI(), getJ()-1, D, arr))) {
-          setJ(J-1);
+        if (getJ() > 0) {
+            if (isBisaDiinjek(getI(), getJ()-1, D, arr)) {
+                setJ(J-1);
+            }
         }
       }
       else if (walk == 'U' || walk == 'u') {
-        if ((getI() > 0) && (isBisaDiinjek(getI()-1, getJ(), D, arr))) {
-          setI(I-1);
+        if (getI() > 0){
+            if (isBisaDiinjek(getI()-1, getJ(), D, arr)) {
+                setI(I-1);
+            }
         }
       }
       else if (walk == 'D' || walk == 'd') {
-        if ((getI() < Display.MAPROW) && (isBisaDiinjek(getI()+1, getJ(), D, arr))) {
-          setI(I+1);
+        if (getI() < Display.MAPROW){
+            if (isBisaDiinjek(getI()+1, getJ(), D, arr)) {
+                setI(I+1);
+            }
         }
       }
     }
