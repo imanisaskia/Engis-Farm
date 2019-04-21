@@ -2,8 +2,9 @@ package display;
 
 import display.Grid;
 import display.Display;
-
 import player.Player;
+import animals.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -35,6 +36,8 @@ public class UI extends JFrame implements ActionListener{
 	String filename;
 	Display d;
 	Player p;
+	AnimalArray animalArray = new AnimalArray();
+
 
 	/*Semua Icon yang dibutuhkan*/
 	Icon iconGrassland = new ImageIcon("display/img/grassland.png");
@@ -135,47 +138,43 @@ public class UI extends JFrame implements ActionListener{
 		if (act.equals("Start")){
 			UIManager.put("OptionPane.cancelButtonText", "Exit");
 			Object[] options = {"OK", "Exit"};
-			filename= (String)JOptionPane.showInputDialog(title,"Input your Map txt file name (include the '.txt') : ","Map Input", JOptionPane.PLAIN_MESSAGE);
-			boolean exist = false;
-			while (!exist){
-				if (filename == null){
-					System.exit(0);
-				} else{
-					try {
-						if (filename.length() >0){
-							d = new Display(filename);
-							p = new Player();
-							exist = true;
-							setMap();
-							setInvent();
-						} else {
-							JOptionPane.showMessageDialog(title,"Please Input Map txt File");
-						filename= (String)JOptionPane.showInputDialog(title,"Input your Map txt file name (include the '.txt') : ","Map Input", JOptionPane.PLAIN_MESSAGE);
-						}				
-					} catch (NullPointerException ex) {
-						JOptionPane.showMessageDialog(title,"Please Input the right Map txt File (Map size has to be 11 x 11)");
-						filename= (String)JOptionPane.showInputDialog(title,"Input your Map txt file name (include the '.txt') : ","Map Input", JOptionPane.PLAIN_MESSAGE);
-					}
+			// filename= (String)JOptionPane.showInputDialog(title,"Input your Map txt file name (include the '.txt') : ","Map Input", JOptionPane.PLAIN_MESSAGE);
+			// boolean exist = false;
+			// while (!exist){
+			// 	if (filename == null){
+			// 		System.exit(0);
+			// 	} else{
+					d = new Display("display/Map.txt");
+					p = new Player();
+					//exist = true;
+					setMap();
+					setInvent();
 					title.dispose();
 					this.setVisible(true);	
-				}
-			}
+			// 	}
+			// }
 		} else 
 		if (act.equals("Command")){
 			//if masih ada animal
 				String command = (String)commandList.getSelectedItem();
 				if (command == "MOVE UP"){
-					p.setI(p.getI()-1);
+					p.walk('u',d, animalArray);
 				} else 
 				if (command == "MOVE RIGHT"){
-					p.setJ(p.getJ()+1);
+					p.walk('r',d, animalArray);
 				} else 
 				if (command == "MOVE DOWN"){
-					p.setI(p.getI()+1);
+					p.walk('d',d, animalArray);
 				} else 
 				if (command == "MOVE LEFT"){
-					p.setJ(p.getJ()-1);
-				} else {
+					p.walk('l',d, animalArray);
+				} else
+				if (command == "GROW"){
+					if (p.grow(d)){
+						d.getMap(p.getI(), p.getJ()).setGrassy(true);
+					}
+				}
+				 else {
 					response.setText("Belum ready gan !");
 				}
 
@@ -200,9 +199,10 @@ public class UI extends JFrame implements ActionListener{
 		/*Set Frame untuk Judul*/
 		JPanel titleP = new JPanel();
 		JLabel titleL = new JLabel("",JLabel.CENTER);
-		String t = ("<html><span style='font-size:20px'>.....(`-')  _<-. (`-')_             _          (`-').-> <br>.....( OO).-/   \\( OO) )    .->    (_)    ,--. ( OO)_ <br>....(,------.,--./ ,--/  ,---(`-') ,-(`-')\\  |(_)--\\_) <br>.....|  .-----'|   \\ |  | '  .-(OO ) | ( OO) `-'/    _ / <br>....(|  '--. |  . '|  |)|  | .-, \\ |  |  )    \\_..`--. <br>.....|  .--' |  |\\    | |  | '.(_/(|  |_/     .-._)   \\ <br>.....|  `---.|  | \\   | |  '-'  |  |  |'->    \\       / <br>.....------'`--'  `--'  `-----'   `--'        `-----'</span></html>");
+		titleL.setIcon(new ImageIcon("display/img/engi.png"));
+		//String t = ("<html><span style='font-size:20px'>.....(`-')  _<-. (`-')_             _          (`-').-> <br>.....( OO).-/   \\( OO) )    .->    (_)    ,--. ( OO)_ <br>....(,------.,--./ ,--/  ,---(`-') ,-(`-')\\  |(_)--\\_) <br>.....|  .-----'|   \\ |  | '  .-(OO ) | ( OO) `-'/    _ / <br>....(|  '--. |  . '|  |)|  | .-, \\ |  |  )    \\_..`--. <br>.....|  .--' |  |\\    | |  | '.(_/(|  |_/     .-._)   \\ <br>.....|  `---.|  | \\   | |  '-'  |  |  |'->    \\       / <br>.....------'`--'  `--'  `-----'   `--'        `-----'</span></html>");
 		//String t = ("<html><span style='font-size:20px'>,------.               ,--.,--.       <br>|  .---',--,--,  ,---. `--'|  |,---.  <br></span></html>");
-		titleL.setText(t);
+		//titleL.setText(t);
 		titleL.setPreferredSize(new Dimension (750,500));
 		titleP.add(titleL);
 //		filenameL.setText("Input your Map txt file name (include the '.txt') : ");

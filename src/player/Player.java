@@ -158,7 +158,7 @@ public class Player{
     }
 
     /*Sell all products procedure*/
-    public boolean InteractTruck(Display display, int idir, int jdir){
+    public boolean interactTruck(Display display, int idir, int jdir){
         boolean success = false;
         if(idir>=0 && idir<=10 && jdir>=0 && jdir<=10){
             boolean Facility=display.checkFacility(idir,jdir,3);
@@ -206,7 +206,7 @@ public class Player{
     }
 
     /*Talk ke binatang yg ada di koordinat <i,j>*/
-    public String Talk(int i, int j, AnimalArray arr) {
+    public String talk(int i, int j, AnimalArray arr) {
       int idx = arr.getNearbyAnimal(i,j);
       if (idx != -999) {
         return arr.getMember(idx).getNoise();
@@ -217,7 +217,7 @@ public class Player{
     }
 
     /*Kill binatang yg ada di koordinat <i,j>, nambahin ke inventory*/
-    public void Kill(int i, int j, AnimalArray arr) {
+    public void kll(int i, int j, AnimalArray arr) {
       int idx = arr.getNearbyAnimal(i,j);
       if (idx != -999) {
         if (arr.getMember(idx) instanceof Chicken) {
@@ -245,31 +245,31 @@ public class Player{
     }
 
     /*jalan ke atas (U), bawah (D), kiri (L), kanan (R)*/
-    public void Walk(char walk, Display D, AnimalArray arr) {
-      if (walk == 'U' || walk == 'u') {
+    public void walk(char walk, Display D, AnimalArray arr) {
+      if (walk == 'R' || walk == 'r') {
         if ((getI() > 0) && (isBisaDiinjek(getI()-1, getJ(), D, arr))) {
           setJ(J+1);
         }
       }
-      else if (walk == 'D' || walk == 'd') {
+      else if (walk == 'L' || walk == 'l') {
         if ((getI() < 10) && (isBisaDiinjek(getI()+1, getJ(), D, arr))) {
           setJ(J-1);
         }
       }
-      else if (walk == 'L' || walk == 'l') {
+      else if (walk == 'U' || walk == 'u') {
         if ((getJ() > 0) && (isBisaDiinjek(getI(), getJ()-1, D, arr))) {
           setI(I-1);
         }
       }
-      else if (walk == 'R' || walk == 'r') {
+      else if (walk == 'D' || walk == 'd') {
         if ((getJ() < 10) && (isBisaDiinjek(getI(), getJ()+1, D, arr))) {
           setI(I+1);
         }
       }
     }
 
-    public boolean Grow(Display D) {
-      if ((D.checkLand(getI(),getJ(),1) || D.checkLand(getI(),getJ(),2) || D.checkLand(getI(),getJ(),3)) && !D.checkGrassy(getI(),getJ())) {
+    public boolean grow(Display D) {
+      if ((D.checkLand(getI(),getJ(),1) || D.checkLand(getI(),getJ(),2) || D.checkLand(getI(),getJ(),3)) && getWater() >0 && !D.checkGrassy(getI(),getJ())) {
         /*D.modifyGrassy(getI(),getJ());*/
         setWater(getWater()-1);
         return true;
