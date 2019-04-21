@@ -254,7 +254,7 @@ public class Player{
         }
       }
       else if (walk == 'D' || walk == 'd') {
-        if ((getI() < Display.MAPCOL) && (isBisaDiinjek(getI()+1, getJ(), D, arr))) {
+        if ((getI() < Display.MAPROW) && (isBisaDiinjek(getI()+1, getJ(), D, arr))) {
           setI(I+1);
         }
       }
