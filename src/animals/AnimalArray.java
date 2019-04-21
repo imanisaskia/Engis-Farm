@@ -22,7 +22,7 @@ public class AnimalArray {
     /** Array of animals */
     private ArrayList<FarmAnimal> member;
 
-    /** Constructor: Instantiates an animal array with one animal of each kind */
+    /** Instantiates an animal array with one animal of each kind */
     public AnimalArray() {
         member = new ArrayList<>(MAX_ANIMALS);
         newChicken();
@@ -33,8 +33,9 @@ public class AnimalArray {
         newRabbit();
     }
 
-    /** Getters */
+    /** Returns member at index x. */
     public FarmAnimal getMember(int x)  { return member.get(x); }
+    /** Returns length of array (number of animals). */
     public int getLength()              { return member.size(); }
 
     /** Searches for animal at the specified position i,j */
@@ -48,12 +49,17 @@ public class AnimalArray {
         return index;
     }
 
-    /** Adding an animal to the array */
+    /** Adding a chicken to the array */
     public void newChicken()    { member.add(new Chicken(DEFAULT_CHICKEN_POS[0], DEFAULT_CHICKEN_POS[1])); }
+    /** Adding a duck to the array */
     public void newDuck()       { member.add(new Duck(DEFAULT_DUCK_POS[0], DEFAULT_DUCK_POS[1])); }
+    /** Adding a cow to the array */
     public void newCow()        { member.add(new Cow(DEFAULT_COW_POS[0], DEFAULT_COW_POS[1])); }
+    /** Adding a goat to the array */
     public void newGoat()       { member.add(new Goat(DEFAULT_GOAT_POS[0], DEFAULT_GOAT_POS[1])); }
+    /** Adding a pig to the array */
     public void newPig()        { member.add(new Pig(DEFAULT_PIG_POS[0], DEFAULT_PIG_POS[1])); }
+    /** Adding a rabbit to the array */
     public void newRabbit()     { member.add(new Rabbit(DEFAULT_RABBIT_POS[0], DEFAULT_RABBIT_POS[1])); }
 
     /** Removes member at index x in the array */
