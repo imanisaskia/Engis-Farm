@@ -98,16 +98,15 @@ public class Display {
 						map[i][j].setUsedTruck(0);
 						iTruck = i;
 						jTruck = j;
-					} else {
-						System.out.println("map format is wrong.");
-						break;
 					}
 				}
-				System.out.println();
 			}
 		} catch (FileNotFoundException ex) {
 			System.out.println(ex);
-		}		
+		} catch (StringIndexOutOfBoundsException ex) {
+			System.out.println("map format is wrong.");
+		}
+
 	}
 
 	public Grid getMap(int i, int j){
