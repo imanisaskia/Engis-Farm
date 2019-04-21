@@ -89,7 +89,7 @@ public class AnimalArray {
 
                 // Checking if destination is allowed and unoccupied
                 boolean occupied = false;
-                if (i < 0 || i > 11 || j < 0 || j > 11) {
+                if (i < 0 || i > Display.MAPROW || j < 0 || j > Display.MAPCOL) {
                     occupied = true;
                 } else if (i == playerI && j == playerJ) {
                     occupied = true;
