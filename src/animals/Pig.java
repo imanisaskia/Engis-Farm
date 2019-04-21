@@ -1,6 +1,9 @@
 package animals;
 
-public class Pig extends EggProducingAnimal {
+/** Class of pig, inherits MeatProducingAnimal. Methods include getters for animal noise and hunger rate.
+ * @author: Saskia Imani (13517142)
+ */
+public class Pig extends MeatProducingAnimal {
     private static final String noise = "Oink oink!";
     private static final double hungerRate = 0.6;
 

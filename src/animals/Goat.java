@@ -1,6 +1,9 @@
 package animals;
 
-public class Goat extends EggProducingAnimal {
+/** Class of goat, inherits MilkProducingAnimal. Methods include getters for animal noise and hunger rate.
+ * @author: Saskia Imani (13517142)
+ */
+public class Goat extends MilkProducingAnimal {
     private static final String noise = "Meh-eh-eh!";
     private static final double hungerRate = 0.3;
 

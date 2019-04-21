@@ -13,6 +13,11 @@ import javax.imageio.ImageIO;
 import java.net.URL;
 import java.awt.image.BufferedImage;
 
+/**
+ * Kelas UI tediri dari atribut untuk menampilkan permainan
+ * Kelas Grid digunakan untuk menampilkan permainan
+ * @author Karina iswara (13517031)
+ */
 public class UI extends JFrame implements ActionListener{
 	public static final String[] command = { "MOVE", "TALK", "KILL", "INTERACT", "GROW", "MIX"};
 	public static final String[] dirs = {"Up", "Right", "Down", "Left"};
@@ -73,6 +78,7 @@ public class UI extends JFrame implements ActionListener{
 	ImageIcon coop = new ImageIcon("display/img/coop.png");
 	ImageIcon barn = new ImageIcon("display/img/barn.jpg");
 
+	/* Main */
 	public static void main(String[] args){
 		UI main = new UI();
 	}
@@ -125,6 +131,7 @@ public class UI extends JFrame implements ActionListener{
 				}
 			}
 		}
+		/* Menampilkan semua binatang yang ada */
 		for (int k = 0; k < animals.getLength(); k++ ) {
 			if (animals.getMember(k) instanceof Chicken){
 				int i = animals.getMember(k).getI();
@@ -236,6 +243,7 @@ public class UI extends JFrame implements ActionListener{
 		sp.setText(SP);
 	}
 
+	/* Untuk aksi yang dilakukan ketika button ditekan */
 	public void actionPerformed(ActionEvent e) {
 		String act = e.getActionCommand();
 		if (act.equals("Start")){
@@ -250,6 +258,7 @@ public class UI extends JFrame implements ActionListener{
 		} else 
 		if (act.equals("Command")){
 			animals.tick(d,p.getI(),p.getJ());
+			d.lessenTruck();
 			response.setText("");
 			if (animals.getLength()>0){
 				String command = (String)commandList.getSelectedItem();
@@ -330,12 +339,12 @@ public class UI extends JFrame implements ActionListener{
 							j -=1;
 						}
 						int type = p.interactAnimal(animals, d, i, j);
-						System.out.println(type);
 						if (type == -999){
 							boolean success = p.interactWell(d,i,j);
 							if (!success){
 								success = p.interactTruck(d,i,j);
 								if (success){
+									d.getMap(d.getITruck(),d.getJTruck()).setUsedTruck(5);
 									response.setText("You sold all of your product(s) ! Here your money !");
 								} else {
 									response.setText("OH NO ! Interact failed !");
@@ -416,6 +425,7 @@ public class UI extends JFrame implements ActionListener{
 		}
 	}
 
+	/* Konstruktor */
 	public UI(){
 		super("Engi's Farm - Ciwi Bandung");
 

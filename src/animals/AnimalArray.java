@@ -5,8 +5,11 @@ import java.util.Random;
 import java.io.Console;
 import display.Display;
 
+/** Array to contain animals. The only class to be instantiated during the main program's execution. Methods include animals and length getter, method to add new animals, find animal at certain location, remove animals, and progress the array one 'tick' ahead.
+ * @author: Saskia Imani (13517142)
+ */
 public class AnimalArray {
-    /* Constants */
+    /** Constants */
     private static final int MAX_ANIMALS = 18;
     private static final int[] DEFAULT_CHICKEN_POS = {1,1};
     private static final int[] DEFAULT_DUCK_POS = {2,2};
@@ -16,10 +19,10 @@ public class AnimalArray {
     private static final int[] DEFAULT_RABBIT_POS = {2,9};
     private static final Random rand = new Random();
 
-    /* Array of animals */
+    /** Array of animals */
     private ArrayList<FarmAnimal> member;
 
-    /* Constructor: Instantiates an animal array with one animal of each kind */
+    /** Constructor: Instantiates an animal array with one animal of each kind */
     public AnimalArray() {
         member = new ArrayList<>(MAX_ANIMALS);
         newChicken();
@@ -30,11 +33,11 @@ public class AnimalArray {
         newRabbit();
     }
 
-    /* Getters */
+    /** Getters */
     public FarmAnimal getMember(int x)  { return member.get(x); }
     public int getLength()              { return member.size(); }
 
-    /* Searches for animal at the specified position i,j */
+    /** Searches for animal at the specified position i,j */
     public int getNearbyAnimal(int i, int j) {
         int index = -999;
         for (int x = 0; x < getLength(); x++) {
@@ -45,7 +48,7 @@ public class AnimalArray {
         return index;
     }
 
-    /* Adding an animal to the array */
+    /** Adding an animal to the array */
     public void newChicken()    { member.add(new Chicken(DEFAULT_CHICKEN_POS[0], DEFAULT_CHICKEN_POS[1])); }
     public void newDuck()       { member.add(new Duck(DEFAULT_DUCK_POS[0], DEFAULT_DUCK_POS[1])); }
     public void newCow()        { member.add(new Cow(DEFAULT_COW_POS[0], DEFAULT_COW_POS[1])); }
@@ -53,14 +56,14 @@ public class AnimalArray {
     public void newPig()        { member.add(new Pig(DEFAULT_PIG_POS[0], DEFAULT_PIG_POS[1])); }
     public void newRabbit()     { member.add(new Rabbit(DEFAULT_RABBIT_POS[0], DEFAULT_RABBIT_POS[1])); }
 
-    /* Removes member at index x in the array */
+    /** Removes member at index x in the array */
     public void removeMember(int x) {
         if (x >= 0 && x < member.size()) {
             member.remove(x);
         }
     }
 
-    /* Moves animals in array */
+    /** Moves animals in array */
     public void moveMembers(Display d, int playerI, int playerJ) {
         for (FarmAnimal x : member) {
             int move = rand.nextInt(10); // Change this to speedFactor if each animal's speed is different!
@@ -116,7 +119,7 @@ public class AnimalArray {
         }
     }
 
-    /* Increases animal hunger by hunger rate (if < 5) or by 1 (if >= 5) */
+    /** Increases animal hunger by hunger rate (if < 5) or by 1 (if >= 5) */
     public void increaseHunger() {
         for (int i = 0; i < getLength(); i++) {
             if (member.get(i).getHunger() < 5) {
@@ -131,7 +134,7 @@ public class AnimalArray {
         }
     }
 
-    /* Makes animals eat if they are hungry (hunger >= 5) */
+    /** Makes animals eat if they are hungry (hunger >= 5) */
     public void makeMembersEat(Display d) {
         for (FarmAnimal x : member) {
             if (x.getHunger() >= 5) {
@@ -144,14 +147,14 @@ public class AnimalArray {
         }
     }
 
-    /* Aggregate method to move animals one tick ahead */
+    /** Aggregate method to move animals one tick ahead */
     public void tick(Display d, int playerI, int playerJ) {
         increaseHunger();
         makeMembersEat(d);
         moveMembers(d, playerI, playerJ);
     }
 
-    /* Class driver */
+    /** Class driver */
     public static void main (String args[]) {
         AnimalArray animals = new AnimalArray();
         Display d = new Display("display/Map.txt");

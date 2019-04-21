@@ -271,6 +271,7 @@ public class Player{
       }
     }
 
+    /*Menumbuhkan rumput di tempat player berdiri*/
     public boolean grow(Display D) {
       if ((D.checkLand(getI(),getJ(),1) || D.checkLand(getI(),getJ(),2) || D.checkLand(getI(),getJ(),3)) && getWater() >0 && !D.checkGrassy(getI(),getJ())) {
         /*D.modifyGrassy(getI(),getJ());*/

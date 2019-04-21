@@ -5,6 +5,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Kelas Display terdiri dari atribut map, iTruck, jTruck,iWell, jWell, iMixer, jMixer, command
+ * Kelas Grid digunakan untuk mendefinisikan seluruh peta pada map
+ * @author Karina iswara (13517031)
+ */
 public class Display {
 	public static final int MAPROW = 11;
 	public static final int MAPCOL = 16;
@@ -145,7 +150,7 @@ public class Display {
 	}
 
 	public boolean checkUsedTruck(int i, int j){
-		return (map[i][j].getUsedTruck() == 0);
+		return (map[i][j].getUsedTruck() == 0 && map[i][j].useTruck());
 	}
 
 	public void modifyGrassy(int i, int j){
@@ -153,11 +158,12 @@ public class Display {
 	}
 
 	public void modifyUsedTruck(int i, int j){
-		map[i][j].useTruck();
+		map[i][j].setUsedTruck(5);
 	}
 
 	public void lessenTruck(){
 		if (map[iTruck][jTruck].getUsedTruck() > 0){
+			
 			map[iTruck][jTruck].setUsedTruck(map[iTruck][jTruck].getUsedTruck() - 1);
 		}
 	}
