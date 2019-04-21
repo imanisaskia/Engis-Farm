@@ -220,15 +220,7 @@ public class Player{
     public void kill(int i, int j, AnimalArray arr) {
       int idx = arr.getNearbyAnimal(i,j);
       if (idx != -999) {
-        if (arr.getMember(idx) instanceof Chicken) {
-          arr.removeMember(idx);
-          FPInventory.add(new ChickenMeat());
-        }
-        else if (arr.getMember(idx) instanceof Cow) {
-          arr.removeMember(idx);
-          FPInventory.add(new CowMeat());
-        }
-        else if (arr.getMember(idx) instanceof Rabbit) {
+        if (arr.getMember(idx) instanceof Rabbit) {
           arr.removeMember(idx);
           FPInventory.add(new RabbitMeat());
         }
@@ -247,22 +239,22 @@ public class Player{
     /*jalan ke atas (U), bawah (D), kiri (L), kanan (R)*/
     public void walk(char walk, Display D, AnimalArray arr) {
       if (walk == 'R' || walk == 'r') {
-        if ((getI() > 0) && (isBisaDiinjek(getI()-1, getJ(), D, arr))) {
+        if ((getJ() < Display.MAPCOL) && (isBisaDiinjek(getI(), getJ()+J, D, arr))) {
           setJ(J+1);
         }
       }
       else if (walk == 'L' || walk == 'l') {
-        if ((getI() < 10) && (isBisaDiinjek(getI()+1, getJ(), D, arr))) {
+        if ((getJ() > 0) && (isBisaDiinjek(getI(), getJ()-1, D, arr))) {
           setJ(J-1);
         }
       }
       else if (walk == 'U' || walk == 'u') {
-        if ((getJ() > 0) && (isBisaDiinjek(getI(), getJ()-1, D, arr))) {
+        if ((getI() > 0) && (isBisaDiinjek(getI()-1, getJ(), D, arr))) {
           setI(I-1);
         }
       }
       else if (walk == 'D' || walk == 'd') {
-        if ((getJ() < 10) && (isBisaDiinjek(getI(), getJ()+1, D, arr))) {
+        if ((getI() < Display.MAPCOL) && (isBisaDiinjek(getI()+1, getJ(), D, arr))) {
           setI(I+1);
         }
       }
