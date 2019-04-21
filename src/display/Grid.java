@@ -50,8 +50,7 @@ public class Grid{
 	}
 
 	public boolean useTruck(){
-		if (usedTruck != 0){
-			setUsedTruck(5);
+		if (usedTruck == 0){
 			return true;
 		} else {
 			return false;
