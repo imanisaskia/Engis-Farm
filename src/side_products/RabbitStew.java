@@ -1,18 +1,18 @@
 package side_products;
 
-public class ChickenAndEggSkewer extends SideProduct {
-		private int price;          //ChickenAndEggSkewer price
+public class RabbitStew extends SideProduct {
+		private int price;          //BeefStew price
         private int ingredient1;    //Ingredient1 type
         private int ingredient2;    //Ingredient2 type
 
         /*constructor*/
-        public ChickenAndEggSkewer(){
+        public RabbitStew(){
 			price = 25;
-			ingredient1=1;
-			ingredient2=5;
+			ingredient1=4;
+			ingredient2=8;
 		}
 
-        /*return ChickenAndEggSkewer price*/
+        /*return BeefStew price*/
         public int getPrice(){
 			return price;
 		}
@@ -27,5 +27,4 @@ public class ChickenAndEggSkewer extends SideProduct {
 			return ingredient2;
 		}
 }
-
 
