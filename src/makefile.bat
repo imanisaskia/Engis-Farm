@@ -1,0 +1,1 @@
+javac UI.java animals/*.java display/*.java farm_products/*.java player/*.java side_products/*.java
