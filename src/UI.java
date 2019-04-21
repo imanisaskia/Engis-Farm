@@ -83,7 +83,7 @@ public class UI extends JFrame implements ActionListener{
 		UI main = new UI();
 	}
 
-	/* Fungsi untuk menggabungkan 2 icon */
+	/** Fungsi untuk menggabungkan 2 icon */
 	public ImageIcon mergedIcon(Icon bg, Icon fg){
 		Image imgBG = ((ImageIcon)bg).getImage();
 		Image imgFG = ((ImageIcon)fg).getImage();
@@ -95,7 +95,7 @@ public class UI extends JFrame implements ActionListener{
 		return (new ImageIcon(temp));	
 	}
 
-	/* Prosedur untuk menampilkan Map*/
+	/** Prosedur untuk menampilkan Map dan isinya */
 	public void setMap(){
 		for (int i =0; i < Display.MAPROW; i++){
 			for (int j = 0; j < Display.MAPCOL; j++ ){
@@ -190,7 +190,7 @@ public class UI extends JFrame implements ActionListener{
         }
 	}
 
-	/* Prosedur untuk menampilkan inventory */
+	/** Prosedur untuk menampilkan inventory, water, dan money dari player*/
 	public void setInvent(){
 		waterL.setText(String.valueOf(p.getWater()));
 		moneyL.setText(String.valueOf(p.getMoney()));
@@ -243,7 +243,7 @@ public class UI extends JFrame implements ActionListener{
 		sp.setText(SP);
 	}
 
-	/* Untuk aksi yang dilakukan ketika button ditekan */
+	/* Prosedur untuk aksi yang dilakukan ketika button ditekan */
 	public void actionPerformed(ActionEvent e) {
 		String act = e.getActionCommand();
 		if (act.equals("Start")){
@@ -344,7 +344,7 @@ public class UI extends JFrame implements ActionListener{
 							if (!success){
 								success = p.interactTruck(d,i,j);
 								if (success){
-									d.getMap(d.getITruck(),d.getJTruck()).setUsedTruck(5);
+									//d.getMap(d.getITruck(),d.getJTruck()).setUsedTruck(5);
 									response.setText("You sold all of your product(s) ! Here your money !");
 								} else {
 									response.setText("OH NO ! Interact failed !");
@@ -425,7 +425,7 @@ public class UI extends JFrame implements ActionListener{
 		}
 	}
 
-	/* Konstruktor */
+	/** Konstruktor UI, mendefinisi frame dan isinya */
 	public UI(){
 		super("Engi's Farm - Ciwi Bandung");
 
@@ -469,10 +469,8 @@ public class UI extends JFrame implements ActionListener{
 		/* Label untuk setiap Map */
 		for (i = 0; i < Display.MAPROW; i ++){
 			for (j = 0; j < Display.MAPCOL; j++){
-				//Hardcode dulu, harusnya text bergantung pada Grid
 				lbl[i][j] = new JLabel("",JLabel.CENTER);
 				lbl[i][j].setOpaque(true);
-//				lbl[i][j].setBackground(Color.GREEN);
 				mp.add(lbl[i][j]);
 			}
 		}
@@ -486,17 +484,11 @@ public class UI extends JFrame implements ActionListener{
 		/*Pengisian Farm Product*/
 		fp.setVerticalAlignment(JLabel.TOP);
 		fp.setBorder(BorderFactory.createTitledBorder("Farm Product"));
-		//isi farm product di hardcode dulu
-		//String fpText = "<html> Chicken Egg <br> Cow Milk <br> Duck Egg <br> Goat Milk <br> Rabbit Milk <br> Pig Meat <br> Cow Meat <br> </html>";
-		//fp.setText(fpText);
 		fp.setPreferredSize(new Dimension(180,145));
 
 		/*Pengisian Side Product*/
 		sp.setVerticalAlignment(JLabel.TOP);
-		sp.setBorder(BorderFactory.createTitledBorder("Side Product"));
-		//isi side product di hardcode dulu
-		//String spText = ("<html> Beef Stew <br> Chicken and Egg Skewer <br> Pork Stew <br> Omlette <br> Chicken and Egg Skewer <br> Omlette <br> </html>");
-		//sp.setText(spText);	
+		sp.setBorder(BorderFactory.createTitledBorder("Side Product"));	
 		sp.setPreferredSize(new Dimension(180,145));
 		
 		/*Pengisian Money*/

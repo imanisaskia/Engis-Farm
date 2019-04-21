@@ -23,6 +23,10 @@ public class Display {
 	private int jMixer;
 	private String command;
 	
+	/**
+	 * Konstruktor dengan parameter berupa file txt untuk Peta Permainan
+	 * @param filename
+	 */
 	public Display(String filename){
 		File file = new File(filename); 
 		try	{
@@ -126,6 +130,9 @@ public class Display {
 		return map[i][j];
 	}
 
+	/** Fungsi untuk mengecek apakah petak merupakan petak land dengan tipe type 
+	 * Menghasilkan true jika petak i,j adalah land dengan tipe type
+	*/
 	public boolean checkLand(int i, int j, int type){
 		if (i < 0 || i >= MAPROW || j < 0 || j >= MAPCOL){
 			return false;			
@@ -137,6 +144,9 @@ public class Display {
 		}
 	}
 
+	/** Fungsi untuk mengecek apakah petak merupakan petak facility dengan tipe type 
+	 * Menghasilkan true jika petak i,j adalah facility dengan tipe type
+	*/
 	public boolean checkFacility(int i, int j, int type){
 		if (map[i][j].getFacility() && map[i][j].getType() == type){
 			return true;
@@ -145,22 +155,31 @@ public class Display {
 		}
 	}
 
+	/** Fungsi untuk mengecek grass pada setiap petak
+	 * Menghasilkan true jika pada petak i,j terdapat grass
+	*/
 	public boolean checkGrassy(int i, int j){
 		return map[i][j].getGrassy();
 	}
 
+	/** Fungsi untuk mengecek apakah Truck dapat digunakan
+	 * Menghasilkan true jika pada petak i,j terdapat grass
+	*/
 	public boolean checkUsedTruck(int i, int j){
-		return (map[i][j].getUsedTruck() == 0 && map[i][j].useTruck());
+		return (map[i][j].useTruck());
 	}
 
+	/** Fungsi untuk mengubah nilai Grassy menjadi kebalikan dari semula */
 	public void modifyGrassy(int i, int j){
 		map[i][j].setGrassy(!map[i][j].getGrassy());
 	}
 
+	/** Fungsi untuk mengubah nilai UsedTruck saat dipakai */
 	public void modifyUsedTruck(int i, int j){
 		map[i][j].setUsedTruck(5);
 	}
-
+	
+	/** Prosedur untuk mengurangi nilai usedTruck pada setiap tick */
 	public void lessenTruck(){
 		if (map[iTruck][jTruck].getUsedTruck() > 0){
 			
@@ -172,6 +191,7 @@ public class Display {
 		command = c;
 	}
 
+	/** Fungsi untuk menerima inputan */
 	public String getCommand(){
 		Scanner c = new Scanner(System.in); 
 		String command = c.nextLine();

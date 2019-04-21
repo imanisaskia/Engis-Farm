@@ -7,6 +7,7 @@ import java.util.*;
  * Kelas Grid digunakan untuk mendefinisikan setiap petak pada map
  * @author Karina iswara (13517031)
  */
+
 public class Grid{
 	private boolean land;
 	private boolean facility;
@@ -54,7 +55,9 @@ public class Grid{
 		usedTruck = ut;
 	}
 
-	/* untuk mengecek apakah Truck dapat digunakan */
+	/**Fungsi untuk mengecek apakah Truck dapat digunakan 
+	 * Menghasilkan nilai true apabila Truck dapat diguanakan 
+	*/
 	public boolean useTruck(){
 		if (usedTruck == 0){
 			return true;
