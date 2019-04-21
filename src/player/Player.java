@@ -5,6 +5,12 @@ import farm_products.*;
 import side_products.*;
 import display.Display;
 
+/**
+ * Kelas Player terdiri dari atribut inventori FarmProduct, inventori SideProduct, uang, air, dan posisi(I dan J) player.
+ * Kelas Player berguna untuk instansiasi objek player yang dapat mengeksekusi perintah-perintah yang diinput user yaitu move, kill, grow, talk, interact, dan mix.
+ * @author Elvina (13517079)
+ * @author Lydia Astrella Wiguna(13517019)
+ */
 public class Player{
     private static final int MAX_WATER=50;
 
@@ -14,6 +20,7 @@ public class Player{
     private int Water;  /*Player's amount of water*/
     private int I,J;   /* Player's position*/
 
+    /**konstruktor */
 	public Player(){
         FPInventory = new Bag<FarmProduct>();
         SPInventory = new Bag<SideProduct>();
@@ -23,7 +30,7 @@ public class Player{
         J = 5;
 	}
 
-    /*getter*/
+     /*getter*/
     public int getMoney(){
         return Money;
     }
@@ -57,7 +64,7 @@ public class Player{
         J=j;
     }
 
-    /* remove FarmProduct element with type tipe from Bag*/
+    /** remove FarmProduct element with type tipe from Bag*/
 	public boolean typeBasedRemove(int tipe){
         boolean success=false;
 		if(FPInventory.getSize()!=0){
@@ -78,7 +85,7 @@ public class Player{
         return success;
     }
 
-    /* add FarmProduct element which type = tipe*/
+    /**add FarmProduct element which type = tipe*/
     /*digunakan untuk saat memakai mixer*/
     public void typeBasedAdd(int tipe){
         if(tipe==1){
@@ -96,7 +103,7 @@ public class Player{
         }
     }
 
-    /*Check FarmAnimal position and Land type, then take FarmProduct
+    /**Check FarmAnimal position and Land type, then take FarmProduct
     if exist and valid for Interact, return animal type(Chicken=1, Duck=2, Cow=3, Goat=4)
     else return type -999*/
     public int interactAnimal(AnimalArray arranimal,Display display, int idir, int jdir){
@@ -134,7 +141,7 @@ public class Player{
         return type;
     }
 
-    /*Take Water procedure*/
+    /**Take Water procedure*/
     public boolean interactWell(Display display, int idir, int jdir){
         boolean success=false;
         if(idir>=0 && idir<Display.MAPROW && jdir>=0 && jdir<Display.MAPCOL){
@@ -153,7 +160,7 @@ public class Player{
         return success;
     }
 
-    /*Sell all products procedure*/
+    /**Sell all products procedure*/
     public boolean interactTruck(Display display, int idir, int jdir){
         boolean success = false;
         if(idir>=0 && idir<Display.MAPROW && jdir>=0 && jdir<Display.MAPCOL){
@@ -176,7 +183,7 @@ public class Player{
         return success;
     }
 
-    /*Mix to get SideProduct*/
+    /**Mix to get SideProduct*/
     public boolean mix(Display display, SideProduct sideproduct, int idir, int jdir){
         boolean succ = false;
         if(idir>=0 && idir<Display.MAPROW && jdir>=0 && jdir<Display.MAPCOL){
@@ -201,7 +208,7 @@ public class Player{
         return succ;
     }
 
-    /*Talk ke binatang yg ada di koordinat <i,j>*/
+    /**Talk ke binatang yg ada di koordinat <i,j>*/
     public String talk(int i, int j, AnimalArray arr) {
       int idx = arr.getNearbyAnimal(i,j);
       if (idx != -999) {
@@ -212,7 +219,7 @@ public class Player{
       }
     }
 
-    /*Kill binatang yg ada di koordinat <i,j>, nambahin ke inventory*/
+    /**Kill binatang yg ada di koordinat <i,j>, nambahin ke inventory*/
     public void kill(int i, int j, AnimalArray arr) {
       int idx = arr.getNearbyAnimal(i,j);
       if (idx != -999) {
@@ -227,7 +234,7 @@ public class Player{
       }
     }
 
-    /*buat Walk player, ga dipanggil di main*/
+    /**buat Walk player, ga dipanggil di main*/
     public boolean isBisaDiinjek(int i, int j, Display D, AnimalArray arr){
         return(((D.checkLand(i,j,1) || D.checkLand(i,j,2) || D.checkLand(i,j,3))) && (arr.getNearbyAnimal(i,j) == -999));
     }
