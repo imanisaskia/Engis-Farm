@@ -9,7 +9,7 @@ public class RabbitStew extends SideProduct {
         public RabbitStew(){
 			price = 25;
 			ingredient1=4;
-			ingredient2=8;
+			ingredient2=6;
 		}
 
         /*return BeefStew price*/

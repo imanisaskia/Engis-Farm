@@ -5,7 +5,7 @@ public class PigMeat extends FarmProduct{
         private int price;  /*PigMeat price*/
 
         public PigMeat(){   /*constructor*/
-			type =7;
+			type =5;
 			price =18;
 		}
 

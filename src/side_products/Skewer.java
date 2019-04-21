@@ -8,8 +8,8 @@ public class Skewer extends SideProduct {
         /*constructor*/
         public Skewer(){
 			price = 40;
-			ingredient1=7;
-			ingredient2=8;
+			ingredient1=5;
+			ingredient2=6;
 		}
 
         /*return ChickenAndEggSkewer price*/

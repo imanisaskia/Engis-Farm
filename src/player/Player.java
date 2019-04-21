@@ -89,10 +89,6 @@ public class Player{
             FPInventory.add(new CowMilk());
         }else if(tipe==4){
             FPInventory.add(new GoatMilk());
-        }else if(tipe==5){
-            FPInventory.add(new ChickenMeat());
-        }else if(tipe==6){
-            FPInventory.add(new CowMeat());
         }else if(tipe==7){
             FPInventory.add(new PigMeat());
         }else if(tipe==8){
