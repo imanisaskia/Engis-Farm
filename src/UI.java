@@ -45,9 +45,11 @@ public class UI extends JFrame implements ActionListener{
 
 	/*Semua Icon yang dibutuhkan*/
 	Icon iconGrassland = new ImageIcon("display/img/grassland.png");
-	Icon iconGrass = new ImageIcon("display/img/grass.png");
 	Icon iconCoop = new ImageIcon("display/img/coop.png");
-	Icon iconBarn = new ImageIcon("display/img/barn.jpg");
+	Icon iconBarn = new ImageIcon("display/img/barn.png");
+	Icon iconGrassGrassland = new ImageIcon("display/img/grassGrass.png");
+	Icon iconGrassCoop = new ImageIcon("display/img/grassCoop.png");
+	Icon iconGrassBarn = new ImageIcon("display/img/grassBarn.png");
 	Icon iconPlayer = new ImageIcon("display/img/player.png");
 	Icon iconWell = new ImageIcon("display/img/well.png");
 	Icon iconTruck = new ImageIcon("display/img/truck.png");
@@ -66,17 +68,17 @@ public class UI extends JFrame implements ActionListener{
 	Icon iconHungryRabbit = new ImageIcon("display/img/hungryRabbit.png");
 
 	/*Icon dari 2 Icon lainnya */
-	ImageIcon coopGrass = mergedIcon(iconCoop, iconGrass);
-	ImageIcon barnGrass = mergedIcon(iconBarn, iconGrass);
+	ImageIcon coopGrass = mergedIcon(iconCoop, iconGrassCoop);
+	ImageIcon barnGrass = mergedIcon(iconBarn, iconGrassBarn);
+	ImageIcon grass = mergedIcon(iconGrassland, iconGrassGrassland);
 	ImageIcon truck = mergedIcon(iconGrassland, iconTruck);
 	ImageIcon well = mergedIcon(iconGrassland, iconWell);
 	ImageIcon mixer = mergedIcon(iconGrassland, iconMixer);
-	ImageIcon grass = mergedIcon(iconGrassland, iconGrass);	
 
 	/* Gambar yang diperlukan */
 	ImageIcon grassland = new ImageIcon("display/img/grassland.png");
 	ImageIcon coop = new ImageIcon("display/img/coop.png");
-	ImageIcon barn = new ImageIcon("display/img/barn.jpg");
+	ImageIcon barn = new ImageIcon("display/img/barn.png");
 
 	/* Main */
 	public static void main(String[] args){
@@ -88,10 +90,10 @@ public class UI extends JFrame implements ActionListener{
 		Image imgBG = ((ImageIcon)bg).getImage();
 		Image imgFG = ((ImageIcon)fg).getImage();
 
-		BufferedImage temp =  new BufferedImage(imgBG.getWidth(null), imgBG.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		BufferedImage temp =  new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) temp.getGraphics();
-		g.drawImage(imgBG, 0, 0, null);
-		g.drawImage(imgFG, 0, 0, null);
+		g.drawImage(imgBG, 0, 0, 50, 50, null);
+		g.drawImage(imgFG, 5, 5, 40, 40, null);
 		return (new ImageIcon(temp));	
 	}
 
